@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class playerMove : MonoBehaviour {
+public class PlayerMove : MonoBehaviour {
 	bool facingRight = true;
 	public float maxSpeed = 10f;
 
@@ -9,7 +9,7 @@ public class playerMove : MonoBehaviour {
 
 	bool grounded = false;
 	public Transform groundCheck;
-	float groundRadius = 0.2f;
+	float groundRadius = 0.05f;
 	public LayerMask whatIsGround;
 	public float jumpForce = 700f;
 
@@ -44,6 +44,11 @@ public class playerMove : MonoBehaviour {
 		if (grounded && Input.GetAxis ("Vertical")>0) {
 			anim.SetBool("Ground", false);
 			rigidbody2D.AddForce(new Vector2(0, jumpForce));
+		}
+
+		// attack
+		if (!anim.GetBool ("Attack") && Input.GetKeyDown ("f")) {
+			anim.SetBool("Attack", true);
 		}
 	}
 
