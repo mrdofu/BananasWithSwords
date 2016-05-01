@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour {
 
 	bool grounded = false;
 	public Transform groundCheck;
-	float groundRadius = 0.05f;
+	float groundRadius = 0.2f;
 	public LayerMask whatIsGround;
 	public float jumpForce = 700f;
 
@@ -44,6 +44,13 @@ public class PlayerMove : MonoBehaviour {
 		if (grounded && Input.GetAxis ("Vertical")>0) {
 			anim.SetBool("Ground", false);
 			rigidbody2D.AddForce(new Vector2(0, jumpForce));
+		}
+
+		// crouching
+		if (grounded && Input.GetAxis ("Vertical") < 0) {
+			anim.SetBool ("Crouching", true);
+		} else {
+			anim.SetBool ("Crouching", false);
 		}
 
 		// attack
